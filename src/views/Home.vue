@@ -4,6 +4,7 @@
         <v-col cols='3'>
             <v-card min-height='300' max-height='600'>
                 <v-list
+                    v-if='totalSum'
                     max-height='500'
                     two-line>
                     <CartItem
@@ -13,8 +14,32 @@
                         @remove='removeFromCart'>
                     </CartItem>
 
-                    {{ totalSum }} {{ discountedSum }}
+                    <v-divider></v-divider>
+
+                    <div class='pa-4'>
+                        <div :class='{ "text-decoration-line-through": totalSum > discountedSum }'>
+                            Total: {{ totalSum }}$
+                        </div>
+                        <div v-if='totalSum > discountedSum'>
+                            Special Offer: {{ discountedSum }}$
+                        </div>
+                    </div>
                 </v-list>
+                <div
+                    v-else
+                    class='px-4 py-16 d-flex align-center justify-center flex-column'>
+                    <v-icon color='blue' size='60'>mdi-cart</v-icon>
+                    <div>Your cart is empty!</div>
+
+                    <v-btn
+                        color='primary'
+                        outlined
+                        rounded
+                        class='mt-4'
+                        @click='addRandomToCart'>
+                        Add random to cart
+                    </v-btn>
+                </div>
             </v-card>
         </v-col>
 
@@ -34,7 +59,7 @@
                 v-if='showLogs'
                 class='mt-4 pa-4'
                 width='100%'>
-                Stacking
+                Stacking Results
 
                 <Stacking
                     :solutions='solutions'
@@ -89,6 +114,14 @@ export default class Home extends Vue {
 
     get discountedSum(): number {
         return CartModule[CartGettersNames.DiscountedSum] || 0
+    }
+
+    addRandomToCart(): void {
+        const randomIndex = Math.floor(Math.random() * this.availableShirts.length)
+
+        if (this.availableShirts[randomIndex]) {
+            this.addToCart(this.availableShirts[randomIndex])
+        }
     }
 
     addToCart(item: Shirt): void {
