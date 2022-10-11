@@ -27,7 +27,7 @@ export default class CartStore extends VuexModule implements ICartState {
     }
 
     get [CartGettersNames.DivisibleByFour](): boolean {
-        return this.cartItems.length > 5 && !(this.cartItems.length % 4)
+        return this[CartGettersNames.StackedCartItems](4).every(stack => stack.length === 4)
     }
 
     get [CartGettersNames.TotalSum](): number {
@@ -35,14 +35,13 @@ export default class CartStore extends VuexModule implements ICartState {
     }
 
     get [CartGettersNames.DiscountedSum](): number {
-        return this[CartGettersNames.DivisibleByFour] ?
-            toHundredth(
-                Math.min(
-                    getDiscountedSum(this[CartGettersNames.StackedCartItems](5)),
-                    getDiscountedSum(this[CartGettersNames.StackedCartItems](4))
+        return toHundredth(
+            getDiscountedSum(
+                this[CartGettersNames.StackedCartItems](
+                    this[CartGettersNames.DivisibleByFour] ? 4 : 5
                 )
-            ) :
-            getDiscountedSum(this[CartGettersNames.StackedCartItems](5))
+            )
+        )
     }
 
     @Mutation
