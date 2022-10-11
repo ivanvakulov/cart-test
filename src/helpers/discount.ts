@@ -28,8 +28,10 @@ const getShirtsSum = (shirts: Array<Shirt>): number => shirts.reduce(
     (sum: number, shirt: Shirt) => sum + shirt.price, 0
 )
 
+export const toHundredth = (value: number): number => Math.ceil(value * 100) / 100
+
 const applyDiscount = (sum: number, discount: DiscountsPercentage): number =>
-    Math.ceil((100 - discount) * sum) / 100;
+    toHundredth((100 - discount) * sum / 100)
 
 export const getDiscountedSum = (stackedShirts: Array<Array<Shirt>>): number => stackedShirts.reduce(
     (discountedSum: number, shirtsStack: Array<Shirt>) => {

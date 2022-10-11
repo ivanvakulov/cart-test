@@ -2,11 +2,13 @@ import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import store from '@/store'
 import { CartGettersNames, CartMutationsNames, StoreModulesNames } from "@/store-consts";
 import { GroupedShirt, Shirt } from "../../../types/Base";
+import { isNil } from "@/helpers/base";
 import {
     getShirtIndexByColor, getTotalSum, groupShirts,
 } from "@/helpers/cart";
-import { isNil } from "@/helpers/base";
-import { getDiscountedSum, stackShirts } from "@/helpers/discount";
+import {
+    getDiscountedSum, stackShirts, toHundredth,
+} from "@/helpers/discount";
 
 export interface ICartState {
     cartItems: Array<Shirt>
@@ -33,7 +35,7 @@ export default class CartStore extends VuexModule implements ICartState {
     }
 
     get [CartGettersNames.DiscountedSum](): number {
-        return Math.min(getDiscountedSum(this[CartGettersNames.StackedCartItems]), getDiscountedSum(this[CartGettersNames.StackedCartItemsDivisibleByFour]))
+        return toHundredth(Math.min(getDiscountedSum(this[CartGettersNames.StackedCartItems]), getDiscountedSum(this[CartGettersNames.StackedCartItemsDivisibleByFour])))
     }
 
     @Mutation
