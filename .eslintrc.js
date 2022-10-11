@@ -38,6 +38,6 @@ module.exports = {
             "svg": `always`,
             "math": `always`,
         }],
-        "object-curly-spacing": ["error", "always"]
+        "object-curly-spacing": [`error`, `always`]
     }
 }

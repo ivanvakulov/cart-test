@@ -20,7 +20,7 @@
     <v-checkbox
         :input-value='showLogs'
         hide-details
-        :label='`Show Grouping Results`'
+        :label='`Show Stacking Results`'
         @change='toggleShowLogs'>
     </v-checkbox>
 </v-app-bar>

@@ -34,7 +34,5 @@ export const groupShirts = (shirts: Array<Shirt>): Array<GroupedShirt> => shirts
 
     }, []) || []
 
-export const getTotalSum = (shirts: Array<GroupedShirt>) => shirts.reduce(
-    (totalSum: number, shirt: GroupedShirt) => {
-        return totalSum + shirt.count * shirt.price
-    }, 0) || 0
+export const getTotalSum = (shirts: Array<GroupedShirt>): number => shirts.reduce(
+    (totalSum: number, shirt: GroupedShirt) => totalSum + shirt.count * shirt.price, 0)

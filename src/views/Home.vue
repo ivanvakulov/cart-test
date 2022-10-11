@@ -13,7 +13,7 @@
                         @remove='removeFromCart'>
                     </CartItem>
 
-                    {{ totalSum }}
+                    {{ totalSum }} {{ discountedSum }}
                 </v-list>
             </v-card>
         </v-col>
@@ -53,6 +53,10 @@ export default class Home extends Vue {
 
     get totalSum(): number {
         return CartModule[CartGettersNames.TotalSum] || 0
+    }
+
+    get discountedSum(): number {
+        return CartModule[CartGettersNames.DiscountedSum] || 0
     }
 
     addToCart(item: Shirt): void {
