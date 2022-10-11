@@ -10,7 +10,7 @@ export enum GlobalMutationsNames {
 export enum CartGettersNames {
     GroupedCartItems = `GroupedCartItems`,
     StackedCartItems = `StackedCartItems`,
-    StackedCartItemsDivisibleByFour = `StackedCartItemsDivisibleByFour`,
+    DivisibleByFour = `DivisibleByFour`,
     TotalSum = `TotalSum`,
     DiscountedSum = `DiscountedSum`
 }

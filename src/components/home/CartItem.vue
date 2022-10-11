@@ -8,7 +8,7 @@
     </v-list-item-avatar>
 
     <v-list-item-content>
-        <v-list-item-title v-text='`${item.color} ${item.count}`'></v-list-item-title>
+        <v-list-item-title class='text-capitalize' v-text='`${item.color} - ${item.count}`'></v-list-item-title>
 
         <v-list-item-subtitle v-text='`${item.price}$`'></v-list-item-subtitle>
     </v-list-item-content>
@@ -38,7 +38,3 @@ export default class CartItem extends Vue {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

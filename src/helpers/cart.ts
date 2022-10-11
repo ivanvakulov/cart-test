@@ -1,5 +1,9 @@
 import { GroupedShirt, Shirt, ShirtColors } from "../../types/Base";
 
+export const sortShirtsByColor = (shirts: Array<Shirt | GroupedShirt>) => {
+    shirts.sort((a,b) => (a.color > b.color) ? 1 : ((b.color > a.color) ? -1 : 0))
+}
+
 export const getGroupedShirt = (shirt: Shirt): GroupedShirt => ({ ...shirt, count: 1 })
 
 export const getShirtByColor = (
@@ -29,9 +33,10 @@ export const groupShirts = (shirts: Array<Shirt>): Array<GroupedShirt> => shirts
         } else {
             groupedShirts.push(getGroupedShirt(shirt))
 
+            sortShirtsByColor(groupedShirts)
+
             return groupedShirts
         }
-
     }, []) || []
 
 export const getTotalSum = (shirts: Array<GroupedShirt>): number => shirts.reduce(

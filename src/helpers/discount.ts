@@ -1,7 +1,7 @@
-import { DiscountsPercentage,  Shirt } from "../../types/Base";
-import { getShirtByColor } from "@/helpers/cart";
+import { DiscountsPercentage, Shirt } from "../../types/Base";
+import { getShirtByColor, sortShirtsByColor } from "@/helpers/cart";
 
-const COUNT_DISCOUNT_MAP: { [key: number]: DiscountsPercentage } = {
+export const COUNT_DISCOUNT_MAP: { [key: number]: DiscountsPercentage } = {
     2: DiscountsPercentage.TwoDiff,
     3: DiscountsPercentage.ThreeDiff,
     4: DiscountsPercentage.FourDiff,
@@ -21,16 +21,18 @@ export const stackShirts = (shirts: Array<Shirt>, maxShirtsPerStack: number = 5)
         }
     })
 
+    stackedShirts.forEach(shirtsStack => sortShirtsByColor(shirtsStack))
+
     return stackedShirts
 }
 
-const getShirtsSum = (shirts: Array<Shirt>): number => shirts.reduce(
+export const getShirtsSum = (shirts: Array<Shirt>): number => shirts.reduce(
     (sum: number, shirt: Shirt) => sum + shirt.price, 0
 )
 
 export const toHundredth = (value: number): number => Math.ceil(value * 100) / 100
 
-const applyDiscount = (sum: number, discount: DiscountsPercentage): number =>
+export const applyDiscount = (sum: number, discount: DiscountsPercentage): number =>
     toHundredth((100 - discount) * sum / 100)
 
 export const getDiscountedSum = (stackedShirts: Array<Array<Shirt>>): number => stackedShirts.reduce(

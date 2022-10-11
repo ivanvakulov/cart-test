@@ -1,6 +1,6 @@
 <template>
 <v-card
-    class='mx-auto mb-4'
+    class='mx-auto mb-4 mx-2 blue lighten-5'
     max-width='344'
     outlined>
     <v-list-item three-line>
@@ -48,7 +48,3 @@ export default class ShirtItem extends Vue {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
