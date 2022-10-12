@@ -1,5 +1,5 @@
 import { DiscountsPercentage, Shirt } from "../../types/Base";
-import { getShirtByColor, sortShirtsByColor } from "@/helpers/cart";
+import { getShirtByColor, sortShirtsByColor, sortShirtsByCount } from "@/helpers/cart";
 
 export const COUNT_DISCOUNT_MAP: { [key: number]: DiscountsPercentage } = {
     2: DiscountsPercentage.TwoDiff,
@@ -9,6 +9,8 @@ export const COUNT_DISCOUNT_MAP: { [key: number]: DiscountsPercentage } = {
 }
 
 export const stackShirts = (shirts: Array<Shirt>, maxShirtsPerStack: number = 5): Array<Array<Shirt>> => {
+    sortShirtsByCount(shirts)
+
     const stackedShirts: Array<Array<Shirt>> = []
 
     shirts.forEach((shirt: Shirt) => {

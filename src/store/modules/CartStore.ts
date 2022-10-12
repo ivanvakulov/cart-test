@@ -23,15 +23,15 @@ export default class CartStore extends VuexModule implements ICartState {
     }
 
     get [CartGettersNames.GetStackedCartItems](): (maxShirtsPerStack: number) => Array<Array<Shirt>> {
-        return (maxShirtsPerStack = 5) => stackShirts(this.cartItems, maxShirtsPerStack)
-    }
-
-    get [CartGettersNames.StackedCartItemsByFour](): Array<Array<Shirt>> {
-        return this[CartGettersNames.GetStackedCartItems](4)
+        return (maxShirtsPerStack = 5) => stackShirts([...this.cartItems], maxShirtsPerStack)
     }
 
     get [CartGettersNames.StackedCartItemsByFive](): Array<Array<Shirt>> {
         return this[CartGettersNames.GetStackedCartItems](5)
+    }
+
+    get [CartGettersNames.StackedCartItemsByFour](): Array<Array<Shirt>> {
+        return this[CartGettersNames.GetStackedCartItems](4)
     }
 
     get [CartGettersNames.DivisibleByFour](): boolean {
@@ -45,11 +45,12 @@ export default class CartStore extends VuexModule implements ICartState {
 
     get [CartGettersNames.DiscountedSum](): number {
         return toHundredth(
-            getDiscountedSum(
-                this[CartGettersNames.DivisibleByFour] ?
-                    this[CartGettersNames.StackedCartItemsByFour] :
-                    this[CartGettersNames.StackedCartItemsByFive]
-            )
+            this[CartGettersNames.DivisibleByFour] ?
+                Math.min(
+                    getDiscountedSum(this[CartGettersNames.StackedCartItemsByFour]),
+                    getDiscountedSum(this[CartGettersNames.StackedCartItemsByFive])
+                ) :
+                getDiscountedSum(this[CartGettersNames.StackedCartItemsByFive])
         )
     }
 

@@ -4,12 +4,21 @@ export const sortShirtsByColor = (shirts: Array<Shirt | GroupedShirt>) => {
     shirts.sort((a,b) => (a.color > b.color) ? 1 : ((b.color > a.color) ? -1 : 0))
 }
 
+export const sortShirtsByCount = (shirts: Array<Shirt | GroupedShirt>) => {
+    shirts.sort((a,b) => (getCountByColor(shirts, a.color) > getCountByColor(shirts, b.color)) ? -1 : ((getCountByColor(shirts, b.color) > getCountByColor(shirts, a.color)) ? 1 : 0))
+}
+
 export const getGroupedShirt = (shirt: Shirt): GroupedShirt => ({ ...shirt, count: 1 })
 
 export const getShirtByColor = (
     shirts: Array<Shirt | GroupedShirt>, color: ShirtColors
 ): Shirt | null =>
     shirts.find(shirt => shirt.color === color) || null
+
+export const getCountByColor = (
+    shirts: Array<Shirt | GroupedShirt>, color: ShirtColors
+): number =>
+    shirts.filter(shirt => shirt.color === color).length || 0
 
 export const getShirtIndexByColor = (
     shirts: Array<Shirt | GroupedShirt>, color: ShirtColors

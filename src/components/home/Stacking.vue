@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component,  Prop, Vue } from "vue-property-decorator";
 import { Shirt } from "../../../types/Base";
-import { applyDiscount, COUNT_DISCOUNT_MAP, getDiscountedSum, getShirtsSum } from "@/helpers/discount";
+import { applyDiscount, COUNT_DISCOUNT_MAP, getDiscountedSum, getShirtsSum, toHundredth } from "@/helpers/discount";
 
 @Component
 export default class CartItem extends Vue {
@@ -40,7 +40,7 @@ export default class CartItem extends Vue {
     totalSum!: number
 
     getDiscountedSum(solution: Array<Array<Shirt>>): number {
-        return getDiscountedSum(solution)
+        return toHundredth(getDiscountedSum(solution))
     }
 
     getStackSum(shirtsStack: Array<Shirt>): number {
