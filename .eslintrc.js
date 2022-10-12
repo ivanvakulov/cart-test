@@ -1,16 +1,20 @@
 module.exports = {
     "root": true,
+
     "env": {
         "node": true
     },
+
     "extends": [
         `plugin:vue/essential`,
         `eslint:recommended`,
         `@vue/typescript`
     ],
+
     "parserOptions": {
         "parser": `@typescript-eslint/parser`
     },
+
     "rules": {
         indent: [`error`, 4, { SwitchCase: 1 }],
         'space-before-function-paren': [`error`, `never`],
@@ -39,5 +43,17 @@ module.exports = {
             "math": `always`,
         }],
         "object-curly-spacing": [`error`, `always`]
-    }
+    },
+
+    overrides: [
+        {
+            files: [
+                `**/__tests__/*.{j,t}s?(x)`,
+                `**/tests/unit/**/*.spec.{j,t}s?(x)`
+            ],
+            env: {
+                jest: true
+            }
+        }
+    ]
 }

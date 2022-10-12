@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "types": [
       "webpack-env",
-      "moralis/types"
+      "jest"
     ],
     "paths": {
       "@/*": [
