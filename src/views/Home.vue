@@ -94,10 +94,10 @@ export default class Home extends Vue {
 
         return CartModule[CartGettersNames.DivisibleByFour] ?
             [
-                CartModule[CartGettersNames.StackedCartItems](5),
-                CartModule[CartGettersNames.StackedCartItems](4)
+                CartModule[CartGettersNames.StackedCartItemsByFive],
+                CartModule[CartGettersNames.StackedCartItemsByFour]
             ] :
-            [CartModule[CartGettersNames.StackedCartItems](5)]
+            [CartModule[CartGettersNames.StackedCartItemsByFive]]
     }
 
     get availableShirts(): Array<Shirt> {
