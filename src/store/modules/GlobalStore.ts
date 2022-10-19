@@ -2,6 +2,7 @@ import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import store from '@/store'
 import { GlobalMutationsNames, StoreModulesNames } from "@/store-consts";
 import { Shirt, ShirtColors } from "../../../types/Base";
+import { USER_CART_STORAGE_KEY } from "@/consts";
 
 export interface IGlobalState {
     showLogs: boolean

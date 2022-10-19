@@ -9,6 +9,7 @@ import {
 import {
     getDiscountedSum, stackShirts, toHundredth,
 } from "@/helpers/discount";
+import { USER_CART_STORAGE_KEY } from "@/consts";
 
 export interface ICartState {
     cartItems: Array<Shirt>
@@ -16,7 +17,8 @@ export interface ICartState {
 
 @Module({ name: StoreModulesNames.CartStore, store, dynamic: true, namespaced: true, stateFactory: true })
 export default class CartStore extends VuexModule implements ICartState {
-    cartItems: Array<Shirt> = []
+    cartItems: Array<Shirt> = localStorage.getItem(USER_CART_STORAGE_KEY) ?
+        JSON.parse(localStorage.getItem(USER_CART_STORAGE_KEY)!) : []
 
     get [CartGettersNames.GroupedCartItems](): Array<GroupedShirt> {
         return groupShirts(this.cartItems)
@@ -57,6 +59,8 @@ export default class CartStore extends VuexModule implements ICartState {
     @Mutation
     [CartMutationsNames.AddItemToCart](item: Shirt): void {
         this.cartItems.push(item)
+
+        localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(this.cartItems))
     }
 
     @Mutation
@@ -66,6 +70,8 @@ export default class CartStore extends VuexModule implements ICartState {
         if (!isNil(index)) {
             this.cartItems.splice(index!, 1)
         }
+
+        localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(this.cartItems))
     }
 }
 
